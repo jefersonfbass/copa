@@ -1,0 +1,6 @@
+{
+  "name": "Livro de Colorir da Copa",
+  "description": "Página de vendas premium, curta e altamente visual para o Livro de Colorir da Copa, com desenhos fofos para imprimir e colorir.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
