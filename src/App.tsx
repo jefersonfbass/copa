@@ -386,7 +386,7 @@ export default function App() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg mx-auto pt-1 text-left font-semibold text-gray-700">
                 <div className="flex items-center gap-2.5">
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-green-100 text-green-600 font-bold text-xs shrink-0 shadow-sm border border-green-200">✓</span>
-                  <span className="text-sm">Jogadores inspirados nos craques</span>
+                  <span className="text-sm">Craques da seleção</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-green-100 text-green-600 font-bold text-xs shrink-0 shadow-sm border border-green-200">✓</span>
@@ -394,7 +394,7 @@ export default function App() {
                 </div>
                 <div className="flex items-center gap-2.5">
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-green-100 text-green-600 font-bold text-xs shrink-0 shadow-sm border border-green-200">✓</span>
-                  <span className="text-sm">Desenhos super fofos e divertidos</span>
+                  <span className="text-sm">Desenhos super divertidos</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-green-100 text-green-600 font-bold text-xs shrink-0 shadow-sm border border-green-200">✓</span>
