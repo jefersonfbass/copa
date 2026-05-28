@@ -521,7 +521,7 @@ export default function App() {
           
           {/* Under scroll caption */}
           <div className="text-center mt-2 mb-0">
-            <p className="font-display text-base sm:text-lg md:text-xl font-extrabold text-green-900 drop-shadow-sm">
+            <p className="font-display text-lg sm:text-xl md:text-2xl font-black text-amber-600 drop-shadow-sm">
               E isso é apenas uma pequena parte do livro… 🇧🇷😍
             </p>
           </div>
