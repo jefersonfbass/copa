@@ -597,6 +597,57 @@ export default function App() {
         </div>
       </section>
 
+      {/* Section 2.5: Testimonials / Feedbacks below Section 4 Offer */}
+      <section className="py-12 bg-white border-b border-gray-100 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-200/10 rounded-full blur-xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-44 h-44 bg-green-200/10 rounded-full blur-2xl pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          
+          {/* Header */}
+          <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-black text-green-800 uppercase tracking-wider bg-green-100 py-1 px-3.5 rounded-full w-fit mx-auto border border-green-200">
+              ⭐ Campeão de Avaliações
+            </span>
+            <h3 className="font-display text-2xl sm:text-3xl font-black text-gray-900 leading-tight">
+              Quem já imprimiu, amou! 😍
+            </h3>
+          </div>
+
+          {/* Testimonial Prints Grid (3 columns) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="bg-white rounded-2xl p-2.5 border border-gray-150 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <img 
+                src="https://i.ibb.co/yn2MKdL9/IMG-0856.jpg" 
+                alt="Depoimento de Cliente" 
+                className="w-full h-auto rounded-xl object-contain object-center"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+            </div>
+            <div className="bg-white rounded-2xl p-2.5 border border-gray-150 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <img 
+                src="https://i.ibb.co/Q3HqCVLH/IMG-0855.jpg" 
+                alt="Depoimento Real do Whatsapp" 
+                className="w-full h-auto rounded-xl object-contain object-center"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+            </div>
+            <div className="bg-white rounded-2xl p-2.5 border border-gray-150 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <img 
+                src="https://i.ibb.co/BHjTjVTz/IMG-0854.jpg" 
+                alt="Feedback Positivo" 
+                className="w-full h-auto rounded-xl object-contain object-center"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       {/* Section 3: Specialized World Cup Bonus Section */}
       <section className="py-16 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden border-b border-gray-100">
         {/* Soft World Cup Confetti / Ball decorative elements */}
@@ -797,68 +848,25 @@ export default function App() {
         </div>
       </section>
 
-      {/* Section 2.5: Testimonials / Feedbacks below Section 4 Offer */}
-      <section className="py-12 bg-white border-b border-gray-100 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-200/10 rounded-full blur-xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-44 h-44 bg-green-200/10 rounded-full blur-2xl pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          
-          {/* Header */}
-          <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-black text-green-800 uppercase tracking-wider bg-green-100 py-1 px-3.5 rounded-full w-fit mx-auto border border-green-200">
-              ⭐ Campeão de Avaliações
-            </span>
-            <h3 className="font-display text-2xl sm:text-3xl font-black text-gray-900 leading-tight">
-              Quem já imprimiu, amou! 😍
-            </h3>
-          </div>
 
-          {/* Testimonial Prints Grid (3 columns) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="bg-white rounded-2xl p-2.5 border border-gray-150 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <img 
-                src="https://i.ibb.co/yn2MKdL9/IMG-0856.jpg" 
-                alt="Depoimento de Cliente" 
-                className="w-full h-auto rounded-xl object-contain object-center"
-                referrerPolicy="no-referrer"
-                loading="lazy"
-              />
-            </div>
-            <div className="bg-white rounded-2xl p-2.5 border border-gray-150 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <img 
-                src="https://i.ibb.co/Q3HqCVLH/IMG-0855.jpg" 
-                alt="Depoimento Real do Whatsapp" 
-                className="w-full h-auto rounded-xl object-contain object-center"
-                referrerPolicy="no-referrer"
-                loading="lazy"
-              />
-            </div>
-            <div className="bg-white rounded-2xl p-2.5 border border-gray-150 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <img 
-                src="https://i.ibb.co/BHjTjVTz/IMG-0854.jpg" 
-                alt="Feedback Positivo" 
-                className="w-full h-auto rounded-xl object-contain object-center"
-                referrerPolicy="no-referrer"
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-        </div>
-      </section>
 
       {/* Brief Guarantee Section */}
-      <section className="bg-white py-12 border-t border-b border-gray-200/60 relative z-10">
-        <div className="max-w-xl mx-auto px-4 text-center space-y-4">
-          <div className="inline-flex items-center justify-center bg-green-50 border border-green-100 rounded-2xl p-3 shadow-inner">
-            <ShieldCheck size={36} className="text-green-600" />
+      <section className="bg-white py-10 border-t border-b border-gray-200/60 relative z-10">
+        <div className="max-w-xl mx-auto px-4 text-center flex flex-col items-center space-y-3">
+          <div className="w-28 sm:w-32 hover:scale-105 transition-transform duration-300">
+            <img 
+              src="https://i.ibb.co/Zp4F2Tjp/celo-de-garantia.png" 
+              alt="Celo de Garantia 7 Dias" 
+              className="w-full h-auto object-contain"
+              referrerPolicy="no-referrer"
+              loading="lazy"
+            />
           </div>
-          <h3 className="font-display text-lg sm:text-xl font-extrabold text-gray-900 tracking-tight">
-            Garantia Blindada de Satisfação! ⭐
+          <h3 className="font-display text-lg sm:text-xl font-black text-gray-900 tracking-tight">
+            Garantia Incondicional de 7 dias! ⭐
           </h3>
-          <p className="text-xs sm:text-sm text-gray-600 font-medium leading-relaxed max-w-md mx-auto">
-            O seu risco é absolutamente <strong>ZERO</strong>. Se por qualquer motivo você ou suas crianças não ficarem completamente encantados com a diversão e a alta qualidade dos nossos desenhos da Copa, basta nos avisar em até <strong>7 dias</strong> para receber um reembolso integral do valor pago.
+          <p className="text-xs sm:text-sm text-gray-600 font-bold leading-relaxed max-w-md">
+            Seu risco é zero! Se por qualquer motivo você não gostar do livro, devolvemos 100% do seu dinheiro imediatamente. Basta nos enviar um e-mail.
           </p>
         </div>
       </section>
