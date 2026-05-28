@@ -22,6 +22,7 @@ import {
 
 import CheckoutModal from "./components/CheckoutModal";
 import PageLightbox from "./components/PageLightbox";
+import PurchaseNotifications from "./components/PurchaseNotifications";
 import { Benefit, ColoringPage } from "./types";
 
 // Import generated images
@@ -770,7 +771,7 @@ export default function App() {
                   setIsCheckoutOpen(true);
                 }
               }}
-              className="w-full bg-yellow-400 hover:bg-yellow-300 text-gray-950 font-display font-black text-sm tracking-wider py-4 rounded-2xl uppercase transition shadow-lg shadow-yellow-400/10 cursor-pointer flex items-center justify-center gap-2 active:scale-95 duration-200 animate-btn-pulse text-center"
+              className="w-full bg-yellow-400 hover:bg-yellow-300 text-gray-950 font-display font-black text-sm tracking-wider py-4 rounded-2xl uppercase transition shadow-lg shadow-yellow-400/10 cursor-pointer flex items-center justify-center gap-2 active:scale-95 duration-200 animate-btn-pulse-strong text-center"
             >
               <span>QUERO ACESSAR AGORA</span>
               <ArrowRight size={16} />
@@ -813,36 +814,35 @@ export default function App() {
             </h3>
           </div>
 
-          {/* Testimonial Cards Grid (4 columns/cards) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {TESTIMONIALS.map((t) => (
-              <div 
-                key={t.id} 
-                className="bg-gray-50/80 hover:bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between relative transform hover:-translate-y-1"
-              >
-                {/* Elegant gold stars list */}
-                <div className="space-y-3">
-                  <div className="flex text-yellow-500 gap-0.5">
-                    {Array.from({ length: t.stars }).map((_, idx) => (
-                      <Star key={idx} size={15} fill="currentColor" className="stroke-[1.5]" />
-                    ))}
-                  </div>
-                  <p className="text-xs text-gray-700 font-medium leading-relaxed italic">
-                    "{t.comment}"
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-2.5 pt-4 mt-4 border-t border-gray-100">
-                  <div className="h-9 w-9 rounded-full bg-gradient-to-tr from-green-600 to-emerald-500 text-xs text-white font-black flex items-center justify-center font-display shadow-inner uppercase">
-                    {t.avatarText}
-                  </div>
-                  <div>
-                    <h5 className="text-xs font-black text-gray-900 leading-none">{t.name}</h5>
-                    <span className="text-[10px] text-gray-400 font-bold">{t.role}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
+          {/* Testimonial Prints Grid (3 columns) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="bg-white rounded-2xl p-2.5 border border-gray-150 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <img 
+                src="https://i.ibb.co/yn2MKdL9/IMG-0856.jpg" 
+                alt="Depoimento de Cliente" 
+                className="w-full h-auto rounded-xl object-contain object-center"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+            </div>
+            <div className="bg-white rounded-2xl p-2.5 border border-gray-150 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <img 
+                src="https://i.ibb.co/Q3HqCVLH/IMG-0855.jpg" 
+                alt="Depoimento Real do Whatsapp" 
+                className="w-full h-auto rounded-xl object-contain object-center"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+            </div>
+            <div className="bg-white rounded-2xl p-2.5 border border-gray-150 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <img 
+                src="https://i.ibb.co/BHjTjVTz/IMG-0854.jpg" 
+                alt="Feedback Positivo" 
+                className="w-full h-auto rounded-xl object-contain object-center"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+            </div>
           </div>
 
         </div>
@@ -956,6 +956,9 @@ export default function App() {
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
       />
+
+      {/* Social proof purchase notifications */}
+      <PurchaseNotifications />
 
     </div>
   );

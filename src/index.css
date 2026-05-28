@@ -65,6 +65,21 @@ html, body, button, input, select, textarea {
   animation: button-scale-pulse 2s ease-in-out infinite;
 }
 
+@keyframes button-scale-pulse-strong {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+  }
+  50% {
+    transform: scale(1.08);
+    filter: brightness(1.1) drop-shadow(0 12px 20px rgba(234, 179, 8, 0.4));
+  }
+}
+
+.animate-btn-pulse-strong {
+  animation: button-scale-pulse-strong 1.4s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0%);
