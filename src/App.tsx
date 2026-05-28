@@ -259,9 +259,62 @@ export default function App() {
     }
   };
 
+  const getCheckoutUrlWithParams = () => {
+    if (!CHECKOUT_LINK || CHECKOUT_LINK === "COLOQUE_SEU_LINK_AQUI" || CHECKOUT_LINK.trim() === "") {
+      return "";
+    }
+    try {
+      const checkoutUrl = new URL(CHECKOUT_LINK);
+      
+      // 1. Capture current URL search parameters
+      const currentParams = new URLSearchParams(window.location.search);
+      currentParams.forEach((value, key) => {
+        checkoutUrl.searchParams.set(key, value);
+      });
+
+      // 2. Capture parameters from localStorage/sessionStorage
+      const utmKeys = [
+        'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 
+        'xcod', 'src', 'sck', 'subid', 'utmify', 'origin'
+      ];
+      
+      utmKeys.forEach(key => {
+        const val = localStorage.getItem(key) || sessionStorage.getItem(key);
+        if (val) {
+          checkoutUrl.searchParams.set(key, val);
+        }
+      });
+
+      // 3. Capture parameters from cookies (and standard UTMify prefixes)
+      const cookies = document.cookie.split(';');
+      cookies.forEach(cookie => {
+        const parts = cookie.split('=');
+        if (parts.length >= 2) {
+          const name = parts[0].trim();
+          const value = parts.slice(1).join('=').trim();
+          
+          utmKeys.forEach(key => {
+            if (name === key || name === `_${key}` || name.includes(key)) {
+              try {
+                checkoutUrl.searchParams.set(key, decodeURIComponent(value));
+              } catch (_) {
+                checkoutUrl.searchParams.set(key, value);
+              }
+            }
+          });
+        }
+      });
+
+      return checkoutUrl.toString();
+    } catch (e) {
+      return CHECKOUT_LINK;
+    }
+  };
+
   const handleOpenCheckout = () => {
-    if (CHECKOUT_LINK && (CHECKOUT_LINK as string) !== "COLOQUE_SEU_LINK_AQUI" && CHECKOUT_LINK.trim() !== "") {
-      window.location.href = CHECKOUT_LINK;
+    const finalUrl = getCheckoutUrlWithParams();
+    if (finalUrl) {
+      window.location.href = finalUrl;
     } else {
       setIsCheckoutOpen(true);
     }
@@ -708,13 +761,20 @@ export default function App() {
               </li>
             </ul>
 
-            <button
-              onClick={handleOpenCheckout}
-              className="w-full bg-yellow-400 hover:bg-yellow-300 text-gray-950 font-display font-black text-sm tracking-wider py-4 rounded-2xl uppercase transition shadow-lg shadow-yellow-400/10 cursor-pointer flex items-center justify-center gap-2 active:scale-95 duration-200 animate-btn-pulse"
+            <a
+              href={getCheckoutUrlWithParams() || "#"}
+              onClick={(e) => {
+                const finalUrl = getCheckoutUrlWithParams();
+                if (!finalUrl) {
+                  e.preventDefault();
+                  setIsCheckoutOpen(true);
+                }
+              }}
+              className="w-full bg-yellow-400 hover:bg-yellow-300 text-gray-950 font-display font-black text-sm tracking-wider py-4 rounded-2xl uppercase transition shadow-lg shadow-yellow-400/10 cursor-pointer flex items-center justify-center gap-2 active:scale-95 duration-200 animate-btn-pulse text-center"
             >
               <span>QUERO ACESSAR AGORA</span>
               <ArrowRight size={16} />
-            </button>
+            </a>
             
           </div>
 
