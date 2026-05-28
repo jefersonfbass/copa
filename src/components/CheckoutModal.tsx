@@ -6,9 +6,9 @@ import {
 } from "lucide-react";
 
 // Import the generated images
-import coloringPage1Img from '../assets/images/coloring_page_1_1779901857472.png';
-import coloringPage2Img from '../assets/images/coloring_page_2_1779901872187.png';
-import coloringPage3Img from '../assets/images/coloring_page_3_1779901885961.png';
+import coloringPage1Img from '../assets/images/coloring_page_1_1779901857472.webp';
+import coloringPage2Img from '../assets/images/coloring_page_2_1779901872187.webp';
+import coloringPage3Img from '../assets/images/coloring_page_3_1779901885961.webp';
 
 interface CheckoutModalProps {
   isOpen: boolean;

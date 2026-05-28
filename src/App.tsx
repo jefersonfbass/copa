@@ -25,11 +25,11 @@ import PageLightbox from "./components/PageLightbox";
 import { Benefit, ColoringPage } from "./types";
 
 // Import generated images
-import bookMockupImg from "./assets/images/book_mockup_1779901838818.png";
+import bookMockupImg from "./assets/images/book_mockup_1779901838818.webp";
 const headlineMockupImg = "https://i.ibb.co/PzhvkRZG/Chat-GPT-Image-27-de-mai-de-2026-18-20-12.png";
-import coloringPage1Img from "./assets/images/coloring_page_1_1779901857472.png";
-import coloringPage2Img from "./assets/images/coloring_page_2_1779901872187.png";
-import coloringPage3Img from "./assets/images/coloring_page_3_1779901885961.png";
+import coloringPage1Img from "./assets/images/coloring_page_1_1779901857472.webp";
+import coloringPage2Img from "./assets/images/coloring_page_2_1779901872187.webp";
+import coloringPage3Img from "./assets/images/coloring_page_3_1779901885961.webp";
 
 // Custom Mock Social proof testimonials to boost high converting vibe
 interface Testimonial {
