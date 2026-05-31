@@ -699,7 +699,7 @@ export default function App() {
               {/* 🎁 BÔNUS EXCLUSIVO Badge */}
               <div className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-400 text-green-950 text-xs sm:text-sm font-black py-2 px-6 rounded-full shadow-md animate-bounce border border-yellow-200">
                 <Gift size={16} className="text-green-950 animate-pulse" />
-                <span>🎁 BÔNUS EXCLUSIVO</span>
+                <span>🎁 BÔNUS EXCLUSIVOS NO KIT COMPLETO</span>
               </div>
 
               {/* Headings */}
@@ -714,7 +714,7 @@ export default function App() {
                 
                 {/* BONUS 1: Os 26 Jogadores Convocados */}
                 <div className="flex flex-col items-center">
-                  <div className="relative group w-full">
+                  <div className="relative group max-w-[250px] w-full mx-auto">
                     {/* Glowing border/background wrapper */}
                     <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-green-500 rounded-[24px] blur-md opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
                     
@@ -728,12 +728,6 @@ export default function App() {
                         loading="lazy"
                       />
                     </div>
-
-                    {/* Overlapping Absolute Sticker 100% GRATIS */}
-                    <div className="absolute -top-3 -right-3 transform rotate-12 bg-red-600 text-white font-black text-xs px-3.5 py-1.5 rounded-xl shadow-lg border-2 border-white flex flex-col items-center justify-center leading-none z-10 animate-pulse">
-                      <span className="text-[9px] uppercase tracking-wider text-yellow-300 font-bold">BÔNUS EXTRA</span>
-                      <span className="text-xs sm:text-sm font-black font-mono">100% GRÁTIS!</span>
-                    </div>
                   </div>
                   
                   <p className="text-base sm:text-lg font-black text-green-950 tracking-tight mt-4">
@@ -743,7 +737,7 @@ export default function App() {
 
                 {/* BONUS 2: Bandeiras das Seleções */}
                 <div className="flex flex-col items-center">
-                  <div className="relative group w-full">
+                  <div className="relative group max-w-[250px] w-full mx-auto">
                     {/* Glowing border/background wrapper */}
                     <div className="absolute -inset-1 bg-gradient-to-r from-green-500 via-yellow-400 to-blue-500 rounded-[24px] blur-md opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
                     
@@ -757,12 +751,6 @@ export default function App() {
                         loading="lazy"
                       />
                     </div>
-
-                    {/* Overlapping Absolute Sticker 100% GRATIS */}
-                    <div className="absolute -top-3 -right-3 transform rotate-12 bg-red-600 text-white font-black text-xs px-3.5 py-1.5 rounded-xl shadow-lg border-2 border-white flex flex-col items-center justify-center leading-none z-10 animate-pulse">
-                      <span className="text-[9px] uppercase tracking-wider text-yellow-300 font-bold">BÔNUS EXTRA</span>
-                      <span className="text-xs sm:text-sm font-black font-mono">100% GRÁTIS!</span>
-                    </div>
                   </div>
                   
                   <p className="text-base sm:text-lg font-black text-green-950 tracking-tight mt-4">
@@ -772,7 +760,7 @@ export default function App() {
 
                 {/* BONUS 3: Copa Colorida */}
                 <div className="flex flex-col items-center">
-                  <div className="relative group w-full">
+                  <div className="relative group max-w-[250px] w-full mx-auto">
                     {/* Glowing border/background wrapper */}
                     <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-yellow-400 to-emerald-500 rounded-[24px] blur-md opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
                     
@@ -785,12 +773,6 @@ export default function App() {
                         className="w-full h-auto rounded-[16px] transition-transform duration-300 group-hover:scale-[1.01]" 
                         loading="lazy"
                       />
-                    </div>
-
-                    {/* Overlapping Absolute Sticker 100% GRATIS */}
-                    <div className="absolute -top-3 -right-3 transform rotate-12 bg-red-600 text-white font-black text-xs px-3.5 py-1.5 rounded-xl shadow-lg border-2 border-white flex flex-col items-center justify-center leading-none z-10 animate-pulse">
-                      <span className="text-[9px] uppercase tracking-wider text-yellow-300 font-bold">BÔNUS EXTRA</span>
-                      <span className="text-xs sm:text-sm font-black font-mono">100% GRÁTIS!</span>
                     </div>
                   </div>
                   
