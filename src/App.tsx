@@ -13,6 +13,7 @@ import {
   Star, 
   Clock, 
   ArrowRight,
+  ArrowDown,
   ChevronRight,
   Award,
   Gift,
@@ -83,6 +84,11 @@ export default function App() {
   const CHECKOUT_LINK: string = "https://checkout.compraragora.site/VCCL1O8SD2XG";
 
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<{ id: "livro" | "kit"; price: string; title: string }>({
+    id: "kit",
+    price: "19,90",
+    title: "Mega Kit Copa do Mundo"
+  });
   const [selectedPage, setSelectedPage] = useState<ColoringPage | null>(null);
   const [timeLeft, setTimeLeft] = useState(899); // 14 minutes 59 seconds
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
@@ -260,12 +266,12 @@ export default function App() {
     }
   };
 
-  const getCheckoutUrlWithParams = () => {
-    if (!CHECKOUT_LINK || CHECKOUT_LINK === "COLOQUE_SEU_LINK_AQUI" || CHECKOUT_LINK.trim() === "") {
+  const getCheckoutUrlForLink = (baseLink: string) => {
+    if (!baseLink || baseLink.trim() === "") {
       return "";
     }
     try {
-      const checkoutUrl = new URL(CHECKOUT_LINK);
+      const checkoutUrl = new URL(baseLink);
       
       // 1. Capture current URL search parameters
       const currentParams = new URLSearchParams(window.location.search);
@@ -308,8 +314,12 @@ export default function App() {
 
       return checkoutUrl.toString();
     } catch (e) {
-      return CHECKOUT_LINK;
+      return baseLink;
     }
+  };
+
+  const getCheckoutUrlWithParams = () => {
+    return getCheckoutUrlForLink(CHECKOUT_LINK);
   };
 
   const handleOpenCheckout = () => {
@@ -317,8 +327,24 @@ export default function App() {
     if (finalUrl) {
       window.location.href = finalUrl;
     } else {
+      setSelectedPlan({ id: "kit", price: "19,90", title: "Mega Kit Copa do Mundo" });
       setIsCheckoutOpen(true);
     }
+  };
+
+  const handleSelectPlanAndCheckout = (id: "livro" | "kit", price: string, title: string) => {
+    if (id === "kit") {
+      const completeLink = "https://checkout.compraragora.site/VCCL1O8SD36C";
+      window.location.href = getCheckoutUrlForLink(completeLink);
+      return;
+    }
+    if (id === "livro") {
+      const basicLink = "https://checkout.compraragora.site/VCCL1O8SD2XG";
+      window.location.href = getCheckoutUrlForLink(basicLink);
+      return;
+    }
+    setSelectedPlan({ id, price, title });
+    setIsCheckoutOpen(true);
   };
 
   const handleScrollToOffer = () => {
@@ -683,32 +709,97 @@ export default function App() {
                 </h2>
               </div>
 
-              {/* High Quality Visual Image Showcase */}
-              <div className="relative group max-w-2xl mx-auto my-6">
-                {/* Glowing border/background wrapper */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-green-500 via-yellow-400 to-blue-500 rounded-[24px] blur-md opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+              {/* High Quality Visual Image Showcase Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
                 
-                {/* Image itself */}
-                <div className="relative bg-white rounded-[20px] p-1.5 sm:p-2 border-2 border-green-200 shadow-2xl overflow-hidden">
-                  <img 
-                    src="https://i.ibb.co/VcKGL7Gn/Chat-GPT-Image-27-de-mai-de-2026-19-38-55.png" 
-                    alt="Bônus Especial Copa do Mundo" 
-                    referrerPolicy="no-referrer"
-                    className="w-full h-auto rounded-[16px] transition-transform duration-300 group-hover:scale-[1.01]" 
-                  />
+                {/* BONUS 1: Os 26 Jogadores Convocados */}
+                <div className="flex flex-col items-center">
+                  <div className="relative group w-full">
+                    {/* Glowing border/background wrapper */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-green-500 rounded-[24px] blur-md opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                    
+                    {/* Image itself */}
+                    <div className="relative bg-white rounded-[20px] p-1.5 sm:p-2 border-2 border-green-200 shadow-2xl overflow-hidden">
+                      <img 
+                        src="https://i.ibb.co/FbXvGNB6/Chat-GPT-Image-31-de-mai-de-2026-12-53-01.png" 
+                        alt="Bônus Os 26 Jogadores Convocados para Colorir" 
+                        referrerPolicy="no-referrer"
+                        className="w-full h-auto rounded-[16px] transition-transform duration-300 group-hover:scale-[1.01]" 
+                        loading="lazy"
+                      />
+                    </div>
+
+                    {/* Overlapping Absolute Sticker 100% GRATIS */}
+                    <div className="absolute -top-3 -right-3 transform rotate-12 bg-red-600 text-white font-black text-xs px-3.5 py-1.5 rounded-xl shadow-lg border-2 border-white flex flex-col items-center justify-center leading-none z-10 animate-pulse">
+                      <span className="text-[9px] uppercase tracking-wider text-yellow-300 font-bold">BÔNUS EXTRA</span>
+                      <span className="text-xs sm:text-sm font-black font-mono">100% GRÁTIS!</span>
+                    </div>
+                  </div>
+                  
+                  <p className="text-base sm:text-lg font-black text-green-950 tracking-tight mt-4">
+                    Os 26 Jogadores Convocados para Colorir 🇧🇷⚽
+                  </p>
                 </div>
 
-                {/* Overlapping Absolute Sticker 100% GRATIS */}
-                <div className="absolute -top-3 -right-3 transform rotate-12 bg-red-600 text-white font-black text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-xl shadow-lg border-2 border-white flex flex-col items-center justify-center leading-none z-10 animate-pulse">
-                  <span className="text-[10px] uppercase tracking-wider text-yellow-300">BÔNUS EXTRA</span>
-                  <span className="text-sm sm:text-base font-black font-mono">100% GRÁTIS!</span>
+                {/* BONUS 2: Bandeiras das Seleções */}
+                <div className="flex flex-col items-center">
+                  <div className="relative group w-full">
+                    {/* Glowing border/background wrapper */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-green-500 via-yellow-400 to-blue-500 rounded-[24px] blur-md opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                    
+                    {/* Image itself */}
+                    <div className="relative bg-white rounded-[20px] p-1.5 sm:p-2 border-2 border-green-200 shadow-2xl overflow-hidden">
+                      <img 
+                        src="https://i.ibb.co/VcKGL7Gn/Chat-GPT-Image-27-de-mai-de-2026-19-38-55.png" 
+                        alt="Bônus Especial Copa do Mundo" 
+                        referrerPolicy="no-referrer"
+                        className="w-full h-auto rounded-[16px] transition-transform duration-300 group-hover:scale-[1.01]" 
+                        loading="lazy"
+                      />
+                    </div>
+
+                    {/* Overlapping Absolute Sticker 100% GRATIS */}
+                    <div className="absolute -top-3 -right-3 transform rotate-12 bg-red-600 text-white font-black text-xs px-3.5 py-1.5 rounded-xl shadow-lg border-2 border-white flex flex-col items-center justify-center leading-none z-10 animate-pulse">
+                      <span className="text-[9px] uppercase tracking-wider text-yellow-300 font-bold">BÔNUS EXTRA</span>
+                      <span className="text-xs sm:text-sm font-black font-mono">100% GRÁTIS!</span>
+                    </div>
+                  </div>
+                  
+                  <p className="text-base sm:text-lg font-black text-green-950 tracking-tight mt-4">
+                    Bandeiras das Seleções 🌎⚽
+                  </p>
                 </div>
+
+                {/* BONUS 3: Copa Colorida */}
+                <div className="flex flex-col items-center">
+                  <div className="relative group w-full">
+                    {/* Glowing border/background wrapper */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-yellow-400 to-emerald-500 rounded-[24px] blur-md opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                    
+                    {/* Image itself */}
+                    <div className="relative bg-white rounded-[20px] p-1.5 sm:p-2 border-2 border-green-200 shadow-2xl overflow-hidden">
+                      <img 
+                        src="https://i.ibb.co/xtMqLzyq/Chat-GPT-Image-31-de-mai-de-2026-13-18-15.png" 
+                        alt="Bônus Livrinho extra Copa Colorida" 
+                        referrerPolicy="no-referrer"
+                        className="w-full h-auto rounded-[16px] transition-transform duration-300 group-hover:scale-[1.01]" 
+                        loading="lazy"
+                      />
+                    </div>
+
+                    {/* Overlapping Absolute Sticker 100% GRATIS */}
+                    <div className="absolute -top-3 -right-3 transform rotate-12 bg-red-600 text-white font-black text-xs px-3.5 py-1.5 rounded-xl shadow-lg border-2 border-white flex flex-col items-center justify-center leading-none z-10 animate-pulse">
+                      <span className="text-[9px] uppercase tracking-wider text-yellow-300 font-bold">BÔNUS EXTRA</span>
+                      <span className="text-xs sm:text-sm font-black font-mono">100% GRÁTIS!</span>
+                    </div>
+                  </div>
+                  
+                  <p className="text-base sm:text-lg font-black text-green-950 tracking-tight mt-4">
+                    Livrinho extra Copa Colorida 📚🎨
+                  </p>
+                </div>
+
               </div>
-
-              {/* Subtitle / Caption for the image above */}
-              <p className="text-base sm:text-lg font-black text-green-950 tracking-tight mt-4">
-                Bandeiras das Seleções da Copa para imprimir e colorir 🌎⚽
-              </p>
 
             </div>
 
@@ -753,81 +844,158 @@ export default function App() {
             ⚽ O mais desejado do Brasil
           </div>
 
+          {/* Headline of plans section */}
+          <div className="space-y-4">
+            <h2 className="font-display text-2xl sm:text-3xl font-black text-white tracking-tight uppercase">
+              Escolha o Plano Ideal para Você
+            </h2>
+            <div className="inline-block bg-yellow-400/15 border border-yellow-400/30 px-5 py-2.5 rounded-2xl shadow-lg max-w-lg mx-auto backdrop-blur-sm">
+              <p className="text-yellow-300 text-xs sm:text-sm font-extrabold tracking-wide text-center">
+                🔒 Acesso seguro, imediato e vitalício. Escolha e comece a colorir agora mesmo!
+              </p>
+            </div>
+          </div>
 
-
-          {/* Pricing Box Premium layout */}
-          <div className="relative max-w-sm mx-auto bg-white/10 border-2 border-yellow-400/60 rounded-3xl p-6 backdrop-blur-md space-y-4 shadow-2xl shadow-yellow-500/20 transition-all duration-300 hover:scale-[1.02] hover:border-yellow-400 hover:shadow-yellow-500/30">
+          {/* Plans Comparison flex/grid layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto pt-4 text-left">
             
-            {/* Top Outstanding Golden Badge */}
-            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 text-green-950 text-[10px] sm:text-[11px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg border border-white/20 whitespace-nowrap flex items-center gap-1">
-              <span>★</span> CAMPEÃO DE VENDAS <span>★</span>
-            </div>
+            {/* PLANO 1 - Livro de Colorir */}
+            <div className="relative flex flex-col justify-between bg-white/10 border-2 border-white/10 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-2xl shadow-green-950/20 transition-all duration-300 hover:scale-[1.02] hover:border-white/20 text-white">
+              <div className="space-y-5">
+                {/* Plan Header */}
+                <div className="text-center">
+                  <h4 className="font-display text-lg sm:text-xl font-black text-white flex items-center justify-center gap-1.5 pt-1">
+                    ⚽ Kit Básico
+                  </h4>
+                </div>
 
-            <div className="flex items-center justify-between text-xs font-bold text-gray-300 uppercase tracking-wider pb-2 border-b border-white/10 pt-2">
-              <span>Acesso vitalício</span>
-              <span className="text-yellow-300">e imediato após a compra</span>
-            </div>
+                {/* Price */}
+                <div className="py-2.5 border-b border-white/15 text-center">
+                  <span className="text-xs text-gray-300/80 line-through font-bold block leading-none mb-1">DE R$ 27,00</span>
+                  <div className="flex items-baseline justify-center gap-1.5">
+                    <span className="text-xs font-black text-yellow-300 uppercase tracking-wider">POR R$</span>
+                    <span className="text-5xl sm:text-6xl font-display font-black text-yellow-300 tracking-tight">10,00</span>
+                    <span className="text-[10px] font-black text-gray-300 uppercase tracking-widest bg-white/10 px-2 py-1 rounded-lg ml-1.5 align-middle">Único</span>
+                  </div>
+                </div>
 
-            <div className="py-2">
-              <span className="text-xs text-gray-300 line-through font-bold block leading-none mb-1">DÊ R$ 47,00</span>
-              <div className="flex items-baseline justify-center gap-1.5">
-                <span className="text-xs font-black text-yellow-400 uppercase tracking-wider">POR R$</span>
-                <span className="text-5xl sm:text-6xl font-display font-black text-yellow-300 tracking-tight">10,00</span>
-                <span className="text-[10px] font-black text-yellow-400 bg-yellow-400/10 px-2 py-1 rounded-lg uppercase tracking-widest align-middle">Único</span>
+                {/* Includes list */}
+                <div className="space-y-3">
+                  <p className="text-[10px] font-black text-yellow-400 uppercase tracking-wider text-center">O que está incluso:</p>
+                  <ul className="space-y-2.5 text-xs text-gray-100 font-semibold text-left">
+                    <li className="flex items-start gap-2.5">
+                      <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
+                      <span>+120 Desenhos da Copa para Colorir</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
+                      <span>Arquivo Digital para Imprimir</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Plan Selector Button */}
+              <div className="pt-6 mt-6 border-t border-white/10">
+                <button
+                  onClick={() => handleSelectPlanAndCheckout("livro", "10,00", "Kit Básico")}
+                  className="w-full bg-yellow-400 hover:bg-yellow-300 text-gray-950 font-display font-black text-sm tracking-wider py-4 rounded-2xl uppercase transition shadow-lg shadow-yellow-400/20 cursor-pointer flex items-center justify-center gap-2 active:scale-95 duration-200 animate-btn-pulse-strong text-center"
+                >
+                  <span>QUERO O KIT BÁSICO</span>
+                  <ArrowRight size={16} />
+                </button>
               </div>
             </div>
 
-            {/* Quick trust metrics */}
-            <ul className="text-left py-2 space-y-2.5 text-xs font-semibold text-gray-100">
-              <li className="flex items-start gap-2">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
-                <span>+120 desenhos exclusivos da Copa</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
-                <span>Craques da copa</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
-                <span>Taças, torcida e mascotes</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
-                <span>Arquivos digitais para imprimir</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
-                <span>Acesso imediato</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
-                <span>Atualizações futuras</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
-                <span>Diversão criativa para crianças</span>
-              </li>
-              <li className="flex items-start gap-2 bg-white/10 p-2 rounded-xl border border-white/10 mt-1">
-                <span className="shrink-0 text-amber-300">🎁</span>
-                <span className="text-yellow-300 font-bold">+ Bônus especial com bandeiras das seleções 🌎</span>
-              </li>
-            </ul>
+            {/* PLANO 2 - Mega Kit (Destaque Principal) */}
+            <div className="relative flex flex-col justify-between bg-white/10 border-[3px] border-yellow-400 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-2xl shadow-yellow-500/20 transition-all duration-300 hover:scale-[1.03] hover:border-yellow-400 text-white">
+              
+              {/* Outstanding Highlight Ribbon / Seal */}
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-red-600 via-yellow-500 to-red-600 text-white text-[10px] sm:text-[11px] font-black uppercase tracking-widest px-5 py-1.5 rounded-full shadow-lg border-2 border-yellow-400 whitespace-nowrap flex items-center gap-1.5 z-20">
+                <span>🔥</span> CAMPEÃO DE VENDAS <span>🔥</span>
+              </div>
 
-            <a
-              href={getCheckoutUrlWithParams() || "#"}
-              onClick={(e) => {
-                const finalUrl = getCheckoutUrlWithParams();
-                if (!finalUrl) {
-                  e.preventDefault();
-                  setIsCheckoutOpen(true);
-                }
-              }}
-              className="w-full bg-yellow-400 hover:bg-yellow-300 text-gray-950 font-display font-black text-sm tracking-wider py-4 rounded-2xl uppercase transition shadow-lg shadow-yellow-400/10 cursor-pointer flex items-center justify-center gap-2 active:scale-95 duration-200 animate-btn-pulse-strong text-center"
-            >
-              <span>QUERO ACESSAR AGORA</span>
-              <ArrowRight size={16} />
-            </a>
-            
+              <div className="space-y-4 pt-1">
+                {/* Plan Header */}
+                <div className="text-center">
+                  <h4 className="font-display text-lg sm:text-xl font-black text-yellow-300 flex items-center justify-center gap-1.5">
+                    🏆 Mega Kit Copa do Mundo
+                  </h4>
+                  <p className="text-[11px] text-yellow-100 font-bold bg-white/10 p-2.5 rounded-xl border border-white/10 mt-2.5 leading-relaxed text-center">
+                    Tudo do plano básico + conteúdos exclusivos.
+                  </p>
+                </div>
+
+                {/* Price with styling */}
+                <div className="py-2 border-b border-white/15 relative text-center">
+                  <span className="text-xs text-gray-300/80 line-through font-bold block leading-none mb-1">DE R$ 49,90</span>
+                  <div className="flex items-baseline justify-center gap-1.5">
+                    <span className="text-xs font-black text-yellow-300 uppercase tracking-wider">POR R$</span>
+                    <span className="text-5xl sm:text-6xl font-display font-black text-yellow-300 tracking-tight">19,90</span>
+                    <span className="text-[10px] font-black text-white uppercase tracking-widest bg-red-600 px-2 py-1 rounded-lg ml-1.5 align-middle animate-pulse">Único</span>
+                  </div>
+                </div>
+
+                {/* Includes list */}
+                <div className="space-y-3">
+                  <p className="text-[10px] font-black text-yellow-300 uppercase tracking-wider text-center">O que está incluso no Kit Completo:</p>
+                  <ul className="space-y-2.5 text-xs text-gray-100 font-semibold text-left">
+                    <li className="flex items-start gap-2.5">
+                      <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
+                      <span>+120 Desenhos da Copa para Colorir</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
+                      <span>Jogadores Craques</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
+                      <span>Torcidas Vibrantes</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
+                      <span>Taças da Copa</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
+                      <span>Mascotes Divertidos</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
+                      <span>Arquivo Digital para Imprimir</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-green-500 text-[10px] text-white shrink-0 mt-0.5">✓</span>
+                      <span>Atualizações Futuras</span>
+                    </li>
+                    <li className="flex items-start gap-2 bg-white/15 p-2.5 rounded-xl border border-white/10 mt-1">
+                      <span className="shrink-0 text-amber-300">🎁</span>
+                      <span className="text-yellow-300 font-bold">Bônus: Bandeiras das Seleções</span>
+                    </li>
+                    <li className="flex items-start gap-2 bg-white/15 p-2.5 rounded-xl border border-white/10 mt-1">
+                      <span className="shrink-0 text-amber-300">🎁</span>
+                      <span className="text-yellow-300 font-bold">Bônus: Os 26 Jogadores Convocados para Colorir</span>
+                    </li>
+                    <li className="flex items-start gap-2 bg-white/15 p-2.5 rounded-xl border border-white/10 mt-1">
+                      <span className="shrink-0 text-amber-300">🎁</span>
+                      <span className="text-yellow-300 font-bold">Bônus: Livrinho extra Copa Colorida</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Plan Selector Button */}
+              <div className="pt-6 mt-6 border-t border-white/10">
+                <button
+                  onClick={() => handleSelectPlanAndCheckout("kit", "19,90", "Mega Kit Copa do Mundo")}
+                  className="w-full bg-yellow-400 hover:bg-yellow-300 text-gray-950 font-display font-black text-sm tracking-wider py-4 rounded-2xl uppercase transition shadow-lg shadow-yellow-400/20 cursor-pointer flex items-center justify-center gap-2 active:scale-95 duration-200 animate-btn-pulse-strong text-center"
+                >
+                  <span>🔥 QUERO O KIT COMPLETO</span>
+                  <ArrowRight size={16} />
+                </button>
+              </div>
+            </div>
+
           </div>
 
           {/* Guaranteed bottom bar trust seals */}
@@ -963,6 +1131,7 @@ export default function App() {
       <CheckoutModal
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
+        selectedPlan={selectedPlan}
       />
 
       {/* Social proof purchase notifications */}

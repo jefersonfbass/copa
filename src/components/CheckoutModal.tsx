@@ -13,11 +13,22 @@ import coloringPage3Img from '../assets/images/coloring_page_3_1779901885961.web
 interface CheckoutModalProps {
   isOpen: boolean;
   onClose: () => void;
+  selectedPlan?: {
+    id: "livro" | "kit";
+    price: string;
+    title: string;
+  };
 }
 
 type PaymentMethod = "pix" | "card";
 
-export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
+export default function CheckoutModal({ isOpen, onClose, selectedPlan }: CheckoutModalProps) {
+  const currentPlan = selectedPlan || {
+    id: "kit",
+    price: "19,90",
+    title: "Mega Kit Copa do Mundo"
+  };
+
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("pix");
@@ -108,7 +119,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
               <span className="text-3xl">⚽</span>
               <div>
                 <h3 className="font-display text-xl font-extrabold tracking-tight">Checkout Seguro</h3>
-                <p className="text-xs text-white/95 font-medium">Garanta seu Livro de Colorir da Copa</p>
+                <p className="text-xs text-white/95 font-medium">Garanta seu {currentPlan.title}</p>
               </div>
             </div>
           </div>
@@ -203,8 +214,8 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                 <div className="flex items-center justify-between rounded-2xl bg-gray-50 p-4 border border-gray-100">
                   <div className="text-xs text-gray-500 font-bold">Valor Promocional Único</div>
                   <div className="flex items-baseline gap-1.5">
-                    <span className="text-xs text-gray-400 line-through">R$ 47,00</span>
-                    <span className="text-xl font-black text-green-600">R$ 10,00</span>
+                    <span className="text-xs text-gray-400 line-through">{currentPlan.id === "kit" ? "R$ 97,00" : "R$ 47,00"}</span>
+                    <span className="text-xl font-black text-green-600">R$ {currentPlan.price}</span>
                   </div>
                 </div>
 
@@ -255,7 +266,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between text-xs font-bold text-gray-400 uppercase tracking-wide">
                     <span>Código Pix Copia e Cola</span>
-                    <span className="text-green-600">Valor: R$ 10,00</span>
+                    <span className="text-green-600">Valor: R$ {currentPlan.price}</span>
                   </div>
                   <div className="flex gap-2">
                     <input
@@ -374,7 +385,7 @@ export default function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
                     <Sparkles size={14} /> Pacote Completo Enviado por E-mail
                   </h5>
                   <p className="text-[11px] text-green-800 mt-1">
-                    O PDF com as <strong>+120 páginas completas de alta definição</strong> foi expedido de forma automática. Divirta-se!
+                    O PDF com o <strong>{currentPlan.id === "kit" ? "Mega Kit Copa do Mundo" : "Livro de Colorir da Copa"} (+120 páginas completas)</strong> foi expedido de forma automática. Divirta-se!
                   </p>
                 </div>
 
