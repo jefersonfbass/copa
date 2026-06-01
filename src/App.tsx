@@ -318,6 +318,50 @@ export default function App() {
     }
   };
 
+  const trackPurchaseIntent = (planName: string, price: number) => {
+    try {
+      console.log(`Tracking purchase intent: ${planName} - R$ ${price}`);
+
+      // 1. Facebook Pixel
+      if (typeof (window as any).fbq === 'function') {
+        (window as any).fbq('track', 'InitiateCheckout', {
+          content_name: planName,
+          value: price,
+          currency: 'BRL',
+          content_type: 'product'
+        });
+      }
+
+      // 2. TikTok Pixel
+      if (typeof (window as any).ttq === 'function') {
+        (window as any).ttq('track', 'InitiateCheckout', {
+          content_name: planName,
+          value: price,
+          currency: 'BRL'
+        });
+      }
+
+      // 3. Google Analytics / Tag Manager
+      if (typeof (window as any).gtag === 'function') {
+        (window as any).gtag('event', 'begin_checkout', {
+          value: price,
+          currency: 'BRL',
+          items: [{
+            item_name: planName,
+            price: price
+          }]
+        });
+      }
+
+      // 4. UTMify Custom Event Support
+      if (typeof (window as any).utmify === 'function') {
+        (window as any).utmify('track', 'InitiateCheckout');
+      }
+    } catch (e) {
+      console.warn("Tracking failed but proceeding gracefully", e);
+    }
+  };
+
   const getCheckoutUrlWithParams = () => {
     return getCheckoutUrlForLink(CHECKOUT_LINK);
   };
@@ -325,7 +369,10 @@ export default function App() {
   const handleOpenCheckout = () => {
     const finalUrl = getCheckoutUrlWithParams();
     if (finalUrl) {
-      window.location.href = finalUrl;
+      trackPurchaseIntent("Mega Kit Copa do Mundo", 19.90);
+      setTimeout(() => {
+        window.location.href = finalUrl;
+      }, 150);
     } else {
       setSelectedPlan({ id: "kit", price: "19,90", title: "Mega Kit Copa do Mundo" });
       setIsCheckoutOpen(true);
@@ -333,18 +380,26 @@ export default function App() {
   };
 
   const handleSelectPlanAndCheckout = (id: "livro" | "kit", price: string, title: string) => {
-    if (id === "kit") {
-      const completeLink = "https://checkout.compraragora.site/VCCL1O8SD36C";
-      window.location.href = getCheckoutUrlForLink(completeLink);
-      return;
-    }
-    if (id === "livro") {
-      const basicLink = "https://checkout.compraragora.site/VCCL1O8SD2XG";
-      window.location.href = getCheckoutUrlForLink(basicLink);
-      return;
-    }
-    setSelectedPlan({ id, price, title });
-    setIsCheckoutOpen(true);
+    const priceNum = id === "kit" ? 19.90 : 10.00;
+    
+    // Trigger standard purchase intent trackers instantly
+    trackPurchaseIntent(title, priceNum);
+
+    // Give 150ms buffer to guarantee the tracking is sent successfully before redirecting
+    setTimeout(() => {
+      if (id === "kit") {
+        const completeLink = "https://checkout.compraragora.site/VCCL1O8SD36C";
+        window.location.href = getCheckoutUrlForLink(completeLink);
+        return;
+      }
+      if (id === "livro") {
+        const basicLink = "https://checkout.compraragora.site/VCCL1O8SD2XG";
+        window.location.href = getCheckoutUrlForLink(basicLink);
+        return;
+      }
+      setSelectedPlan({ id, price, title });
+      setIsCheckoutOpen(true);
+    }, 150);
   };
 
   const handleScrollToOffer = () => {
@@ -879,13 +934,17 @@ export default function App() {
 
               {/* Plan Selector Button */}
               <div className="pt-6 mt-6 border-t border-white/10">
-                <button
-                  onClick={() => handleSelectPlanAndCheckout("livro", "10,00", "Kit Básico")}
+                <a
+                  href={getCheckoutUrlForLink("https://checkout.compraragora.site/VCCL1O8SD2XG")}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSelectPlanAndCheckout("livro", "10,00", "Kit Básico");
+                  }}
                   className="w-full bg-yellow-400 hover:bg-yellow-300 text-gray-950 font-display font-black text-sm tracking-wider py-4 rounded-2xl uppercase transition shadow-lg shadow-yellow-400/20 cursor-pointer flex items-center justify-center gap-2 active:scale-95 duration-200 animate-btn-pulse-strong text-center"
                 >
                   <span>QUERO O KIT BÁSICO</span>
                   <ArrowRight size={16} />
-                </button>
+                </a>
               </div>
             </div>
 
@@ -968,13 +1027,17 @@ export default function App() {
 
               {/* Plan Selector Button */}
               <div className="pt-6 mt-6 border-t border-white/10">
-                <button
-                  onClick={() => handleSelectPlanAndCheckout("kit", "19,90", "Mega Kit Copa do Mundo")}
+                <a
+                  href={getCheckoutUrlForLink("https://checkout.compraragora.site/VCCL1O8SD36C")}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSelectPlanAndCheckout("kit", "19,90", "Mega Kit Copa do Mundo");
+                  }}
                   className="w-full bg-yellow-400 hover:bg-yellow-300 text-gray-950 font-display font-black text-sm tracking-wider py-4 rounded-2xl uppercase transition shadow-lg shadow-yellow-400/20 cursor-pointer flex items-center justify-center gap-2 active:scale-95 duration-200 animate-btn-pulse-strong text-center"
                 >
                   <span>🔥 QUERO O KIT COMPLETO</span>
                   <ArrowRight size={16} />
-                </button>
+                </a>
               </div>
             </div>
 
