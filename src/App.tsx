@@ -18,7 +18,8 @@ import {
   Award,
   Gift,
   Globe,
-  ChevronDown
+  ChevronDown,
+  Loader2
 } from "lucide-react";
 
 import CheckoutModal from "./components/CheckoutModal";
@@ -92,6 +93,7 @@ export default function App() {
   const [selectedPage, setSelectedPage] = useState<ColoringPage | null>(null);
   const [timeLeft, setTimeLeft] = useState(899); // 14 minutes 59 seconds
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [loadingPlan, setLoadingPlan] = useState<"livro" | "kit" | null>(null);
 
   const faqItems = [
     {
@@ -380,15 +382,18 @@ export default function App() {
   };
 
   const handleSelectPlanAndCheckout = (id: "livro" | "kit", price: string, title: string) => {
+    if (loadingPlan) return;
+    setLoadingPlan(id);
+
     const priceNum = id === "livro" ? 10.00 : 19.90;
     // Trigger standard purchase intent trackers instantly
     trackPurchaseIntent(title, priceNum);
 
-    // Give 120ms buffer to guarantee the tracking is sent successfully before redirecting
+    // Speed up redirection to under 50ms now that loading feedback is instant and prevents double-clicking
     setTimeout(() => {
       const targetLink = id === "livro" ? "https://checkout.compraragora.site/VCCL1O8SD2XG" : "https://checkout.compraragora.site/VCCL1O8SD36C";
       window.location.href = getCheckoutUrlForLink(targetLink);
-    }, 120);
+    }, 50);
   };
 
   const handleScrollToOffer = () => {
@@ -942,13 +947,29 @@ export default function App() {
               <div className="pt-6 mt-6 border-t border-white/10">
                 <button
                   type="button"
+                  disabled={loadingPlan !== null}
                   onClick={() => {
                     handleSelectPlanAndCheckout("livro", "10,00", "Kit Básico");
                   }}
-                  className="w-full bg-yellow-400 hover:bg-yellow-300 text-gray-950 font-display font-black text-sm tracking-wider py-4 rounded-2xl uppercase transition shadow-lg shadow-yellow-400/20 cursor-pointer flex items-center justify-center gap-2 active:scale-95 duration-200 animate-btn-pulse-strong text-center"
+                  className={`w-full text-gray-950 font-display font-black text-xs tracking-wider py-4 rounded-2xl uppercase transition shadow-lg flex items-center justify-center gap-2 active:scale-95 duration-200 text-center ${
+                    loadingPlan === "livro"
+                      ? "bg-yellow-500 cursor-not-allowed opacity-90 animate-pulse"
+                      : loadingPlan !== null
+                      ? "bg-yellow-400 opacity-60 cursor-not-allowed"
+                      : "bg-yellow-400 hover:bg-yellow-300 shadow-yellow-400/20 cursor-pointer animate-btn-pulse-strong"
+                  }`}
                 >
-                  <span>QUERO O KIT BÁSICO</span>
-                  <ArrowRight size={16} />
+                  {loadingPlan === "livro" ? (
+                    <>
+                      <Loader2 className="animate-spin" size={16} />
+                      <span>Redirecionando Seguro...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>QUERO O KIT BÁSICO</span>
+                      <ArrowRight size={16} />
+                    </>
+                  )}
                 </button>
               </div>
             </div>
@@ -1034,13 +1055,29 @@ export default function App() {
               <div className="pt-6 mt-6 border-t border-white/10">
                 <button
                   type="button"
+                  disabled={loadingPlan !== null}
                   onClick={() => {
                     handleSelectPlanAndCheckout("kit", "19,90", "Mega Kit Copa do Mundo");
                   }}
-                  className="w-full bg-yellow-400 hover:bg-yellow-300 text-gray-950 font-display font-black text-sm tracking-wider py-4 rounded-2xl uppercase transition shadow-lg shadow-yellow-400/20 cursor-pointer flex items-center justify-center gap-2 active:scale-95 duration-200 animate-btn-pulse-strong text-center"
+                  className={`w-full text-gray-950 font-display font-black text-xs tracking-wider py-4 rounded-2xl uppercase transition shadow-lg flex items-center justify-center gap-2 active:scale-95 duration-200 text-center ${
+                    loadingPlan === "kit"
+                      ? "bg-yellow-500 cursor-not-allowed opacity-90 animate-pulse"
+                      : loadingPlan !== null
+                      ? "bg-yellow-400 opacity-60 cursor-not-allowed"
+                      : "bg-yellow-400 hover:bg-yellow-300 shadow-yellow-400/20 cursor-pointer animate-btn-pulse-strong"
+                  }`}
                 >
-                  <span>🔥 QUERO O KIT COMPLETO</span>
-                  <ArrowRight size={16} />
+                  {loadingPlan === "kit" ? (
+                    <>
+                      <Loader2 className="animate-spin" size={16} />
+                      <span>Redirecionando Seguro...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>🔥 QUERO O KIT COMPLETO</span>
+                      <ArrowRight size={16} />
+                    </>
+                  )}
                 </button>
               </div>
             </div>
