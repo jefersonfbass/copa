@@ -81,7 +81,7 @@ export default function UpgradeModal({
             {/* Decline Action */}
             <button
               onClick={onDeclineUpgrade}
-              className="mt-3 text-[11px] font-medium text-gray-400 hover:text-white transition-colors duration-150 py-1"
+              className="mt-4 text-[13px] font-bold text-gray-400 hover:text-white underline decoration-gray-600/60 hover:decoration-white transition-all duration-150 py-2 cursor-pointer touch-manipulation text-center block"
             >
               Não, obrigado. Quero apenas o básico por R$ 10,00
             </button>
