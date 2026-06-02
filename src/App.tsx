@@ -24,7 +24,6 @@ import {
 import CheckoutModal from "./components/CheckoutModal";
 import PageLightbox from "./components/PageLightbox";
 import PurchaseNotifications from "./components/PurchaseNotifications";
-import UpgradeModal from "./components/UpgradeModal";
 import { Benefit, ColoringPage } from "./types";
 
 // Import generated images
@@ -83,12 +82,8 @@ export default function App() {
   // COLOQUE O SEU LINK DE PAGAMENTO DA KIWIFY, HOTMART, PERFECTPAY, ETC. ABAIXO:
   // Se você mantiver o valor "COLOQUE_SEU_LINK_AQUI" ou vazio "", o site usará o modal de Pix integrado padrão do site.
   const CHECKOUT_LINK: string = "https://checkout.compraragora.site/VCCL1O8SD2XG";
-  
-  // LINK DE CHECKOUT COM O VALOR PROMOCIONAL DE R$17,90 PARA O UPGRADE DO POPUP:
-  const UPGRADE_DISCOUNT_LINK: string = "https://checkout.compraragora.site/VCCL1O8SD39L";
 
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
-  const [isUpgradeOpen, setIsUpgradeOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<{ id: "livro" | "kit"; price: string; title: string }>({
     id: "kit",
     price: "19,90",
@@ -384,39 +379,15 @@ export default function App() {
     }
   };
 
-  const handleConfirmUpgrade = () => {
-    setIsUpgradeOpen(false);
-    // Instant tracking for discounted bundle purchase intent
-    trackPurchaseIntent("Mega Kit Copa do Mundo - Oferta Especial", 17.90);
-    setTimeout(() => {
-      window.location.href = getCheckoutUrlForLink(UPGRADE_DISCOUNT_LINK);
-    }, 120);
-  };
-
-  const handleDeclineUpgrade = () => {
-    setIsUpgradeOpen(false);
-    // Instant tracking for standard basic book purchase intent
-    trackPurchaseIntent("Kit Básico", 10.00);
-    setTimeout(() => {
-      window.location.href = getCheckoutUrlForLink("https://checkout.compraragora.site/VCCL1O8SD2XG");
-    }, 120);
-  };
-
   const handleSelectPlanAndCheckout = (id: "livro" | "kit", price: string, title: string) => {
-    if (id === "livro") {
-      // Instead of going directly to basic book checkout, open the premium upgrade/upsell modal
-      setIsUpgradeOpen(true);
-      return;
-    }
-
-    const priceNum = 19.90;
+    const priceNum = id === "livro" ? 10.00 : 19.90;
     // Trigger standard purchase intent trackers instantly
     trackPurchaseIntent(title, priceNum);
 
     // Give 120ms buffer to guarantee the tracking is sent successfully before redirecting
     setTimeout(() => {
-      const completeLink = "https://checkout.compraragora.site/VCCL1O8SD36C";
-      window.location.href = getCheckoutUrlForLink(completeLink);
+      const targetLink = id === "livro" ? "https://checkout.compraragora.site/VCCL1O8SD2XG" : "https://checkout.compraragora.site/VCCL1O8SD36C";
+      window.location.href = getCheckoutUrlForLink(targetLink);
     }, 120);
   };
 
@@ -1211,14 +1182,6 @@ export default function App() {
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
         selectedPlan={selectedPlan}
-      />
-
-      {/* Premium discount upgrade dialog (Upsell) */}
-      <UpgradeModal
-        isOpen={isUpgradeOpen}
-        onClose={() => setIsUpgradeOpen(false)}
-        onConfirmUpgrade={handleConfirmUpgrade}
-        onDeclineUpgrade={handleDeclineUpgrade}
       />
 
       {/* Social proof purchase notifications */}
