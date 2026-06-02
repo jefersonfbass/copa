@@ -101,10 +101,12 @@ html, body, button, input, select, textarea {
 .animate-marquee {
   display: flex;
   animation: marquee 35s linear infinite;
+  will-change: transform;
 }
 
 .animate-marquee-reverse {
   display: flex;
   animation: marquee-reverse 35s linear infinite;
+  will-change: transform;
 }
 

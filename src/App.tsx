@@ -474,6 +474,9 @@ export default function App() {
                   alt="Amostra do Livro de Colorir da Copa" 
                   className="w-full h-auto rounded-xl object-contain bg-white"
                   referrerPolicy="no-referrer"
+                  loading="eager"
+                  decoding="sync"
+                  fetchPriority="high"
                 />
               </div>
 
@@ -609,6 +612,8 @@ export default function App() {
                       alt={page.title}
                       className="w-full h-full object-contain"
                       referrerPolicy="no-referrer"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 ))}
@@ -625,6 +630,8 @@ export default function App() {
                       alt={page.title}
                       className="w-full h-full object-contain"
                       referrerPolicy="no-referrer"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 ))}
@@ -644,6 +651,8 @@ export default function App() {
                       alt={page.title}
                       className="w-full h-full object-contain"
                       referrerPolicy="no-referrer"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 ))}
@@ -660,6 +669,8 @@ export default function App() {
                       alt={page.title}
                       className="w-full h-full object-contain"
                       referrerPolicy="no-referrer"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 ))}
@@ -722,6 +733,7 @@ export default function App() {
                 className="w-full h-auto rounded-xl object-contain object-center"
                 referrerPolicy="no-referrer"
                 loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="bg-white rounded-2xl p-2.5 border border-gray-150 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
@@ -731,6 +743,7 @@ export default function App() {
                 className="w-full h-auto rounded-xl object-contain object-center"
                 referrerPolicy="no-referrer"
                 loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="bg-white rounded-2xl p-2.5 border border-gray-150 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
@@ -740,6 +753,7 @@ export default function App() {
                 className="w-full h-auto rounded-xl object-contain object-center"
                 referrerPolicy="no-referrer"
                 loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
@@ -799,6 +813,7 @@ export default function App() {
                         referrerPolicy="no-referrer"
                         className="w-full h-auto rounded-[16px] transition-transform duration-300 group-hover:scale-[1.01]" 
                         loading="lazy"
+                        decoding="async"
                       />
                     </div>
                   </div>
@@ -822,6 +837,7 @@ export default function App() {
                         referrerPolicy="no-referrer"
                         className="w-full h-auto rounded-[16px] transition-transform duration-300 group-hover:scale-[1.01]" 
                         loading="lazy"
+                        decoding="async"
                       />
                     </div>
                   </div>
@@ -845,6 +861,7 @@ export default function App() {
                         referrerPolicy="no-referrer"
                         className="w-full h-auto rounded-[16px] transition-transform duration-300 group-hover:scale-[1.01]" 
                         loading="lazy"
+                        decoding="async"
                       />
                     </div>
                   </div>
@@ -952,17 +969,16 @@ export default function App() {
 
               {/* Plan Selector Button */}
               <div className="pt-6 mt-6 border-t border-white/10">
-                <a
-                  href={getCheckoutUrlForLink("https://checkout.compraragora.site/VCCL1O8SD2XG")}
-                  onClick={(e) => {
-                    e.preventDefault();
+                <button
+                  type="button"
+                  onClick={() => {
                     handleSelectPlanAndCheckout("livro", "10,00", "Kit Básico");
                   }}
                   className="w-full bg-yellow-400 hover:bg-yellow-300 text-gray-950 font-display font-black text-sm tracking-wider py-4 rounded-2xl uppercase transition shadow-lg shadow-yellow-400/20 cursor-pointer flex items-center justify-center gap-2 active:scale-95 duration-200 animate-btn-pulse-strong text-center"
                 >
                   <span>QUERO O KIT BÁSICO</span>
                   <ArrowRight size={16} />
-                </a>
+                </button>
               </div>
             </div>
 
@@ -1045,17 +1061,16 @@ export default function App() {
 
               {/* Plan Selector Button */}
               <div className="pt-6 mt-6 border-t border-white/10">
-                <a
-                  href={getCheckoutUrlForLink("https://checkout.compraragora.site/VCCL1O8SD36C")}
-                  onClick={(e) => {
-                    e.preventDefault();
+                <button
+                  type="button"
+                  onClick={() => {
                     handleSelectPlanAndCheckout("kit", "19,90", "Mega Kit Copa do Mundo");
                   }}
                   className="w-full bg-yellow-400 hover:bg-yellow-300 text-gray-950 font-display font-black text-sm tracking-wider py-4 rounded-2xl uppercase transition shadow-lg shadow-yellow-400/20 cursor-pointer flex items-center justify-center gap-2 active:scale-95 duration-200 animate-btn-pulse-strong text-center"
                 >
                   <span>🔥 QUERO O KIT COMPLETO</span>
                   <ArrowRight size={16} />
-                </a>
+                </button>
               </div>
             </div>
 
@@ -1091,6 +1106,7 @@ export default function App() {
               className="w-full h-auto object-contain"
               referrerPolicy="no-referrer"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <h3 className="font-display text-lg sm:text-xl font-black text-gray-900 tracking-tight">
